@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vrooms.Domain", "Vrooms.Domain\Vrooms.Domain.csproj", "{0E90B5D0-2F43-4502-8E93-CA8961B5C998}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vrooms.WebUI", "Vrooms.WebUI\Vrooms.WebUI.csproj", "{8C6132BD-BD32-4714-BB0E-337D24CB37D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vrooms.UnitTests", "Vrooms.UnitTests\Vrooms.UnitTests.csproj", "{1922028E-AFC2-4B70-89D6-4AF93EAC5725}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E90B5D0-2F43-4502-8E93-CA8961B5C998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E90B5D0-2F43-4502-8E93-CA8961B5C998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E90B5D0-2F43-4502-8E93-CA8961B5C998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E90B5D0-2F43-4502-8E93-CA8961B5C998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C6132BD-BD32-4714-BB0E-337D24CB37D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C6132BD-BD32-4714-BB0E-337D24CB37D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C6132BD-BD32-4714-BB0E-337D24CB37D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6132BD-BD32-4714-BB0E-337D24CB37D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1922028E-AFC2-4B70-89D6-4AF93EAC5725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1922028E-AFC2-4B70-89D6-4AF93EAC5725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1922028E-AFC2-4B70-89D6-4AF93EAC5725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1922028E-AFC2-4B70-89D6-4AF93EAC5725}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
