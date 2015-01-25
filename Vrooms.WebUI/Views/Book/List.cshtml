@@ -1,16 +1,20 @@
-﻿@using Vrooms.Domain.Entities
-@model IEnumerable<Book>
+﻿@using Vrooms.WebUI.HtmlHelpers
+@model Vrooms.WebUI.Models.BooksListViewModel
 
 @{
     ViewBag.Title = "Books";
 }
 
-@foreach (var p in @Model)
+@foreach (var book in @Model.Books)
 {
     <div>
-        <h3><strong>@p.Title</strong></h3>
-        <h4>@p.Author</h4>
-        <p>@p.Description</p>
+        <h3><strong>@book.Title</strong></h3>
+        <h4>@book.Author</h4>
+        <p>@book.Description</p>
         <hr />
     </div>
 }
+
+<div>
+   @Html.PageLinks(Model.Pagination, i => Url.Action("List", new { pageNum = i }))
+</div>
