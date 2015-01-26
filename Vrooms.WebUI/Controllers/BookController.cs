@@ -12,7 +12,7 @@ namespace Vrooms.WebUI.Controllers
     public class BookController : Controller
     {
         private IBookRepository repository;
-        public int PageSize = 1;
+        public int PageSize = 2;
 
         public BookController(IBookRepository bookRepository)
         {

@@ -5,16 +5,16 @@
     ViewBag.Title = "Books";
 }
 
-@foreach (var book in @Model.Books)
-{
-    <div>
-        <h3><strong>@book.Title</strong></h3>
-        <h4>@book.Author</h4>
-        <p>@book.Description</p>
-        <hr />
+    <div class="container-fluid">
+        <div class="btn-group pull-right">
+            @Html.PageLinks(Model.Pagination, i => Url.Action("List", new { pageNum = i }))
+        </div>
     </div>
-}
 
-<div>
-   @Html.PageLinks(Model.Pagination, i => Url.Action("List", new { pageNum = i }))
-</div>
+    <div class="container-fluid">
+        @foreach (var book in @Model.Books)
+        {
+            @Html.Partial("BookSummary", book)
+        }
+
+    </div>
