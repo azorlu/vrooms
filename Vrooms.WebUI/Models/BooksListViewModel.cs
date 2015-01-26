@@ -10,5 +10,6 @@ namespace Vrooms.WebUI.Models
     {
         public IEnumerable<Book> Books { get; set; }
         public Pagination Pagination { get; set; }
+        public int? CurrentLanguageId { get; set; }
     }
 }

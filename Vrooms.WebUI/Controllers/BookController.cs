@@ -19,19 +19,22 @@ namespace Vrooms.WebUI.Controllers
             this.repository = bookRepository;   
         }
 
-        public ViewResult List(int pageNum = 1)
+        public ViewResult List(int? langId, int pageNum = 1)
         {
             BooksListViewModel viewModel = new BooksListViewModel { 
                 Books = repository.Books
-                    .OrderBy(b => b.BookID)
+                .Where(b => langId == null || b.LanguageId == langId)
+                    .OrderBy(b => b.BookId)
                     .Skip((pageNum-1) * PageSize)
                     .Take(PageSize),
                 Pagination = new Pagination { 
                     CurrentPageNum = pageNum, 
                     ItemsPerPage = PageSize, 
                     TotalItems = repository.Books.Count()
-                }
+                },
+                CurrentLanguageId = langId 
             };
+            
 
             return View(viewModel);
         }

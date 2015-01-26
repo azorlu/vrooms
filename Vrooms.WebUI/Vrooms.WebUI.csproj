@@ -127,6 +127,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,6 +144,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Book\List.cshtml" />
     <Content Include="Views\Shared\BookSummary.cshtml" />
+    <Content Include="Views\Navigation\Menu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

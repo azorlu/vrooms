@@ -14,10 +14,56 @@ namespace Vrooms.WebUI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: null,
-                url: "Page{pageNum}",
-                defaults: new { Controller = "Book", action = "List" }
-);
+                null,
+                "",
+                new
+                {
+                    controller = "Book",
+                    action = "List",
+                    langId = (int?)null,
+                    pageNum = 1
+                }
+            );
+
+            routes.MapRoute(
+                null,
+                "Page{pageNum}",
+                new
+                {
+                    controller = "Book",
+                    action = "List",
+                    langId = (int?)null
+                },
+                new
+                {
+                    pageNum = @"\d+"
+                }
+            );
+
+            routes.MapRoute(
+                null,
+                "{langId}",
+                new 
+                { 
+                    controller = "Book", 
+                    action = "List", 
+                    pageNum = 1 
+                }
+            );
+
+            routes.MapRoute(
+                null,
+                "{langId}/Page{pageNum}",
+                new 
+                { 
+                    controller = "Book", 
+                    action = "List" 
+                },
+                new
+                {
+                    pageNum = @"\d+"
+                }
+            );
 
             routes.MapRoute(
                 name: "Default",
