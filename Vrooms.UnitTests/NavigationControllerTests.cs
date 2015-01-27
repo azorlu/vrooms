@@ -16,35 +16,53 @@ namespace Vrooms.UnitTests
     [TestClass]
     public class NavigationControllerTests
     {
-        Mock<IBookRepository> mock = null;
+        Mock<ILanguageRepository> mock = null;
         NavigationController controller = null;
+
+        Mock<IBookRepository> mockBooks = null;
         
         [TestInitialize]
         public void TestInit()
         {
-            mock = new Mock<IBookRepository>();
-            mock.Setup(m => m.Books).Returns(new Book[] {
+            // mocking navigation property
+            mockBooks = new Mock<IBookRepository>();
+            mockBooks.Setup(m => m.Books).Returns(new Book[] {
                 new Book {BookId = 1, Title = "Book 1", LanguageId=1},
-                new Book {BookId = 2, Title = "Book 2", LanguageId=1},
-                new Book {BookId = 3, Title = "Book 3", LanguageId=1},
-                new Book {BookId = 4, Title = "Book 4", LanguageId=2},
-                new Book {BookId = 5, Title = "Book 5", LanguageId=2},
-                new Book {BookId = 5, Title = "Book 6", LanguageId=3}
+                new Book {BookId = 2, Title = "Book 2", LanguageId=2}
             });
 
-            controller = new NavigationController(mock.Object);
+            mock = new Mock<ILanguageRepository>();
+            mock.Setup(m => m.Languages).Returns(new Language[] {
+                new Language {LanguageId = 1, LanguageName_En = "English"},
+                new Language {LanguageId = 2, LanguageName_En = "French"}
+            });
+
+            Language[] langs = mock.Object.Languages.ToArray();
+            Book[] books = mockBooks.Object.Books.ToArray();
+            langs[0].Books = new Book[] {books[0]};
+            langs[1].Books = new Book[] {books[1]};
             
+            controller = new NavigationController(mock.Object);
+
         }
 
         [TestMethod]
         public void Should_Create_Languages()
         {
-            string[] languages = ((IEnumerable<string>)controller.Menu().Model).ToArray();
-            Assert.IsTrue(languages.Length == 3);
-            //Assert.AreEqual(languages[0], "English");
-            //Assert.AreEqual(languages[1], "French");
-            //Assert.AreEqual(languages[2], "German");
+            Language[] languages = ((IEnumerable<Language>)controller.Menu().Model).ToArray();
+            Assert.IsTrue(languages.Length == 2);
+            Assert.AreEqual(languages[0].LanguageName_En, "English");
+            Assert.AreEqual(languages[1].LanguageName_En, "French");
+        }
 
+        [TestMethod]
+        public void Should_Indicate_Selected_Language()
+        {
+            int? langId = 2;
+
+            int selLangId = controller.Menu(langId).ViewBag.SelectedLanguageId;
+
+            Assert.AreEqual(langId, selLangId);
         }
 
     }

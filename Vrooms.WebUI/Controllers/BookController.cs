@@ -30,7 +30,9 @@ namespace Vrooms.WebUI.Controllers
                 Pagination = new Pagination { 
                     CurrentPageNum = pageNum, 
                     ItemsPerPage = PageSize, 
-                    TotalItems = repository.Books.Count()
+                    TotalItems = langId == null ?
+                        repository.Books.Count() :
+                        repository.Books.Where(b => b.LanguageId == langId).Count()
                 },
                 CurrentLanguageId = langId 
             };

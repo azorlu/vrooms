@@ -1,17 +1,20 @@
-﻿@model IEnumerable<string>
+﻿@using Vrooms.Domain.Entities
+@model IEnumerable<Language>
 
 @Html.ActionLink("Home", "List", "Book", null,
 new { @class = "btn btn-block btn-default btn-lg" })
-@foreach (var link in Model)
+
+@foreach (var m in Model)
 {
-    @Html.RouteLink(link, new
+    @Html.RouteLink(m.LanguageName_En, new
 {
     controller = "Book",
     action = "List",
-    langId = link,
+    langId = m.LanguageId,
     pageNum = 1
 }, new
 {
     @class = "btn btn-block btn-default btn-lg"
+    + (m.LanguageId == ViewBag.SelectedLanguageId ? " btn-primary" : "")
 })
 }

@@ -24,6 +24,7 @@ namespace Vrooms.WebUI.Infrastructure
         private void AddBindings()
         {
             kernel.Bind<IBookRepository>().To<EFBookRepository>();
+            kernel.Bind<ILanguageRepository>().To<EFLanguageRepository>();
         }
 
         public object GetService(Type serviceType)
