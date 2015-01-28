@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Vrooms.Domain.Data
+namespace Vrooms.Domain.Entities
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VroomsEntities : DbContext
+    public partial class EFDbContext : DbContext
     {
-        public VroomsEntities()
-            : base("name=VroomsEntities")
+        public EFDbContext()
+            : base("name=EFDbContext")
         {
         }
     

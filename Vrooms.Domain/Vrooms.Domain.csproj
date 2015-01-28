@@ -80,50 +80,47 @@
     <Compile Include="Abstract\IBookRepository.cs" />
     <Compile Include="Concrete\EFLanguageRepository.cs" />
     <Compile Include="Concrete\EFBookRepository.cs" />
-    <Compile Include="Concrete\EFDbContext.cs" />
-    <Compile Include="Data\Book.cs">
-      <DependentUpon>BooksEntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\BooksEntityDataModel.Context.cs">
+    <Compile Include="Entities\EntityDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BooksEntityDataModel.Context.tt</DependentUpon>
+      <DependentUpon>EntityDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\BooksEntityDataModel.cs">
+    <Compile Include="Entities\EntityDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BooksEntityDataModel.tt</DependentUpon>
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\BooksEntityDataModel.Designer.cs">
+    <Compile Include="Entities\EntityDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BooksEntityDataModel.edmx</DependentUpon>
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Data\Language.cs">
-      <DependentUpon>BooksEntityDataModel.tt</DependentUpon>
+    <Compile Include="Entities\Language.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Language.cs" />
-    <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\Book.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Data\BooksEntityDataModel.edmx">
+    <EntityDeploy Include="Entities\EntityDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BooksEntityDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>EntityDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Data\BooksEntityDataModel.Context.tt">
+    <None Include="Entities\EntityDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BooksEntityDataModel.edmx</DependentUpon>
-      <LastGenOutput>BooksEntityDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>EntityDataModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="Data\BooksEntityDataModel.edmx.diagram">
-      <DependentUpon>BooksEntityDataModel.edmx</DependentUpon>
+    <None Include="Entities\EntityDataModel.edmx.diagram">
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
     </None>
-    <None Include="Data\BooksEntityDataModel.tt">
+    <None Include="Entities\EntityDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BooksEntityDataModel.edmx</DependentUpon>
-      <LastGenOutput>BooksEntityDataModel.cs</LastGenOutput>
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>EntityDataModel.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

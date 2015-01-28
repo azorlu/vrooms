@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Ahmet\dev\projects\Project_Vrooms\Vrooms\Vrooms.Domain\Data\BooksEntityDataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Ahmet\dev\projects\Project_Vrooms\Vrooms\Vrooms.Domain\Entities\EntityDataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
