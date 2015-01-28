@@ -5,5 +5,15 @@
         <strong>@Model.Title</strong>
         <span class="pull-right label label-primary">@Model.Author</span>
     </h3>
+
+    @using (Html.BeginForm("AddToCart", "Cart"))
+    {
+        <div class="pull-right">
+            @Html.HiddenFor(x => x.BookId)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <input type="submit" class="btn btn-success" value="Reserve" />
+        </div>
+    }
+
     <span class="lead">@Model.Description</span>
 </div>

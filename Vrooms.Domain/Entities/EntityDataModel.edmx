@@ -4,7 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookItems">
+          <Key>
+            <PropertyRef Name="BookItemId" />
+          </Key>
+          <Property Name="BookItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="CirculationStatusId" Type="int" Nullable="false" />
+          <Property Name="RFID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Barcode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ShelvingLocation" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Books">
           <Key>
             <PropertyRef Name="BookId" />
@@ -26,6 +37,18 @@
           <Property Name="Iso3" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="LanguageName_En" Type="nvarchar" MaxLength="64" Nullable="false" />
         </EntityType>
+        <Association Name="FK__BookItems__BookI__4F7CD00D">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="BookItems" Type="Self.BookItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookItems">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Books__LanguageI__1DE57479">
           <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
           <End Role="Books" Type="Self.Books" Multiplicity="*" />
@@ -39,15 +62,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EntitiesStoreContainer">
+          <EntitySet Name="BookItems" EntityType="Self.BookItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BookItems__BookI__4F7CD00D" Association="Self.FK__BookItems__BookI__4F7CD00D">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="BookItems" EntitySet="BookItems" />
+          </AssociationSet>
           <AssociationSet Name="FK__Books__LanguageI__1DE57479" Association="Self.FK__Books__LanguageI__1DE57479">
             <End Role="Languages" EntitySet="Languages" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -64,6 +91,7 @@
           <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LanguageId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Language" Relationship="Self.FK__Books__LanguageI__1DE57479" FromRole="Books" ToRole="Languages" />
+          <NavigationProperty Name="BookItems" Relationship="Entities.FK__BookItems__BookI__4F7CD00D" FromRole="Book" ToRole="BookItem" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
@@ -93,7 +121,44 @@
             <End Role="Languages" EntitySet="Languages" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
+          <EntitySet Name="BookItems" EntityType="Entities.BookItem" />
+          <AssociationSet Name="FK__BookItems__BookI__4F7CD00D" Association="Entities.FK__BookItems__BookI__4F7CD00D">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="BookItem" EntitySet="BookItems" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="BookItem">
+          <Key>
+            <PropertyRef Name="BookItemId" />
+          </Key>
+          <Property Name="BookItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="CirculationStatusId" Type="Entities.CirculationStatuses" Nullable="false" />
+          <Property Name="RFID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Barcode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ShelvingLocation" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Book" Relationship="Entities.FK__BookItems__BookI__4F7CD00D" FromRole="BookItem" ToRole="Book" />
+        </EntityType>
+        <Association Name="FK__BookItems__BookI__4F7CD00D">
+          <End Type="Entities.Book" Role="Book" Multiplicity="1" />
+          <End Type="Entities.BookItem" Role="BookItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookItem">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="CirculationStatuses">
+          <Member Name="ReferenceOnly" Value="1" />
+          <Member Name="InProcess" Value="2" />
+          <Member Name="Available" Value="3" />
+          <Member Name="Reserved" Value="4" />
+          <Member Name="CheckedOut" Value="5" />
+          <Member Name="Lost" Value="6" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -120,6 +185,18 @@
                 <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
                 <ScalarProperty Name="Iso3" ColumnName="Iso3" />
                 <ScalarProperty Name="LanguageName_En" ColumnName="LanguageName_En" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookItems">
+            <EntityTypeMapping TypeName="Entities.BookItem">
+              <MappingFragment StoreEntitySet="BookItems">
+                <ScalarProperty Name="ShelvingLocation" ColumnName="ShelvingLocation" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="RFID" ColumnName="RFID" />
+                <ScalarProperty Name="CirculationStatusId" ColumnName="CirculationStatusId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookItemId" ColumnName="BookItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

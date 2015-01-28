@@ -76,10 +76,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBookItemRepository.cs" />
     <Compile Include="Abstract\ILanguageRepository.cs" />
     <Compile Include="Abstract\IBookRepository.cs" />
+    <Compile Include="Concrete\EFBookItemRepository.cs" />
     <Compile Include="Concrete\EFLanguageRepository.cs" />
     <Compile Include="Concrete\EFBookRepository.cs" />
+    <Compile Include="Entities\BookItem.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\CirculationStatuses.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\EntityDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

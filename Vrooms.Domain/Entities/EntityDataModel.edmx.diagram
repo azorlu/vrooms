@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="Entities.Book" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Entities.Language" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="Entities.FK__Books__LanguageI__1DE57479" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Entities.BookItem" Width="1.5" PointX="5.25" PointY="1.375" />
+        <AssociationConnector Association="Entities.FK__BookItems__BookI__4F7CD00D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,6 +14,11 @@ namespace Vrooms.Domain.Entities
     
     public partial class Book
     {
+        public Book()
+        {
+            this.BookItems = new HashSet<BookItem>();
+        }
+    
         public int BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
@@ -24,5 +29,6 @@ namespace Vrooms.Domain.Entities
         public int LanguageId { get; set; }
     
         public virtual Language Language { get; set; }
+        public virtual ICollection<BookItem> BookItems { get; set; }
     }
 }
