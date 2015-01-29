@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
+using System.Text;
 
 namespace Vrooms.WebUI.App_Settings
 {
@@ -14,17 +15,15 @@ namespace Vrooms.WebUI.App_Settings
         static public string SiteTitlePrefix { get; set; }
         static public string SiteTitleSuffix { get; set; }
         static public string SiteTitleHeader { get; set; }
-        static public int MaxNumOfLoans { get; set; }
+        static public string SiteTitleWithPrefixAndSuffix { get; set; }
 
-        // Explicit static constructor to tell C# compiler
-        // not to mark type as beforefieldinit
         static GlobalSettings()
         {
             SiteTitle = WebConfigurationManager.AppSettings["SiteTitle"];
             SiteTitlePrefix = WebConfigurationManager.AppSettings["SiteTitlePrefix"];
             SiteTitleSuffix = WebConfigurationManager.AppSettings["SiteTitleSuffix"];
             SiteTitleHeader = WebConfigurationManager.AppSettings["SiteTitleHeader"];
-            MaxNumOfLoans = Convert.ToInt32(WebConfigurationManager.AppSettings["MaxNumOfLoans"]);
+            SiteTitleWithPrefixAndSuffix = GetSiteTitleWithPrefixAndSuffix();
         }
 
         private GlobalSettings()
@@ -37,6 +36,24 @@ namespace Vrooms.WebUI.App_Settings
             {
                 return instance;
             }
+        }
+
+        // utility methods
+        private static string GetSiteTitleWithPrefixAndSuffix()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (!String.IsNullOrWhiteSpace(SiteTitlePrefix))
+            {
+                sb.Append(SiteTitlePrefix);
+                sb.Append(" ");
+            }
+            sb.Append(SiteTitle);
+            if (!String.IsNullOrWhiteSpace(SiteTitleSuffix))
+            {
+                sb.Append(" ");
+                sb.Append(SiteTitleSuffix);
+            }
+            return sb.ToString();
         }
     } 
 }

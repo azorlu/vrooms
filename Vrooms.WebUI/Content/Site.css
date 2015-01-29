@@ -16,3 +16,6 @@ textarea {
     max-width: 280px;
 }
 
+/* Custom style */
+#cartTable td { vertical-align: middle; }
+

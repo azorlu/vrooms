@@ -18,48 +18,41 @@ namespace Vrooms.WebUI.Controllers
             repository = bookRepository;
         }
 
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnUrl
             });
         }
 
-        private Cart GetCart()
-        {
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-            return cart;
-        }
-
-        public RedirectToRouteResult AddToCart(int bookId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int bookId, string returnUrl)
         {
             Book book = repository.Books
             .FirstOrDefault(b => b.BookId == bookId);
             if (book != null)
             {
-                GetCart().AddItem(book);
+                cart.AddItem(book);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(int bookId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int bookId, string returnUrl)
         {
             Book book = repository.Books
             .FirstOrDefault(b => b.BookId == bookId);
             if (book != null)
             {
-                GetCart().RemoveItem(book);
+                cart.RemoveItem(book);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
+        public PartialViewResult CartSummary(Cart cart)
+        {
+            return PartialView(cart);
+        }
 
     }
 }

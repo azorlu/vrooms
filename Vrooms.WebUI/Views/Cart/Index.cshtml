@@ -5,11 +5,12 @@
 }
 
 <h2>Reserve Books</h2>
-<table class="table">
+<table class="table" id="cartTable">
     <thead>
         <tr>
             <th>Title</th>
             <th>Author</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -18,12 +19,21 @@
             <tr>
                 <td class="text-left">@item.Book.Title</td>
                 <td class="text-left">@item.Book.Author</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("BookId", item.Book.BookId)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Remove" />
+                    }
+                </td>
+
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" colspan="2">
+            <td class="text-center" colspan="3">
                 <a class="btn btn-primary" href="@Model.ReturnUrl">Continue</a>
             </td>
         </tr>
