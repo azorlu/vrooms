@@ -1,19 +1,35 @@
 ﻿@model Vrooms.Domain.Entities.Book
 
-<div class="well">
-    <h3>
-        <strong>@Model.Title</strong>
-        <span class="pull-right label label-primary">@Model.Author</span>
-    </h3>
+@{ var headingId = "heading" + Model.BookId.ToString(); }
+@{ var collapsableDivId = "colDiv" + Model.BookId.ToString(); }
 
-    @using (Html.BeginForm("AddToCart", "Cart"))
-    {
-        <div class="pull-right">
-            @Html.HiddenFor(x => x.BookId)
-            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-            <input type="submit" class="btn btn-success" value="Reserve" />
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="@headingId">
+        <div class="panel-title">
+            
+            <div class="well">
+                <h3>
+                    <strong>@Model.Title</strong>
+                    <span class="pull-right label label-primary">@Model.Author</span>
+                </h3>
+                @using (Html.BeginForm("AddToCart", "Cart"))
+                {
+                    <div class="pull-right">
+                        @Html.HiddenFor(x => x.BookId)
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" class="btn btn-success" value="Reserve" />
+                    </div>
+                }
+
+            </div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#@collapsableDivId" aria-expanded="false" aria-controls="@collapsableDivId">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
         </div>
-    }
-
-    <span class="lead">@Model.Description</span>
+    </div>
+    <div id="@collapsableDivId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@headingId">
+        <div class="panel-body">
+            @Model.Description
+        </div>
+    </div>
 </div>

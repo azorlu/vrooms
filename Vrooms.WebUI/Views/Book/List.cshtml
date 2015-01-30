@@ -14,10 +14,12 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    @foreach (var book in @Model.Books)
-    {
-        @Html.Partial("BookSummary", book)
-    }
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+   
+        @foreach (var book in @Model.Books)
+        {
+            @Html.Partial("BookSummary", book)
+        }
 
 </div>
+
