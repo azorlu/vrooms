@@ -28,5 +28,8 @@ namespace Vrooms.Domain.Entities
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<BookItem> BookItems { get; set; }
+        public virtual DbSet<Patron> Patrons { get; set; }
+        public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<ReservedBookItem> ReservedBookItems { get; set; }
     }
 }

@@ -10,6 +10,12 @@
         <AssociationConnector Association="Entities.FK__Books__LanguageI__1DE57479" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Entities.BookItem" Width="1.5" PointX="5.25" PointY="1.375" />
         <AssociationConnector Association="Entities.FK__BookItems__BookI__4F7CD00D" />
+        <EntityTypeShape EntityType="Entities.Patron" Width="1.5" PointX="5.25" PointY="6.625" />
+        <EntityTypeShape EntityType="Entities.Person" Width="1.5" PointX="3" PointY="5.625" />
+        <AssociationConnector Association="Entities.FK__Patrons__PersonI__2A4B4B5E" />
+        <EntityTypeShape EntityType="Entities.ReservedBookItem" Width="1.5" PointX="7.5" PointY="3.875" />
+        <AssociationConnector Association="Entities.FK__ReservedB__BookI__5EBF139D" />
+        <AssociationConnector Association="Entities.FK__ReservedB__Patro__5FB337D6" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

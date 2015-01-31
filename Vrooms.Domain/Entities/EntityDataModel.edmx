@@ -37,6 +37,41 @@
           <Property Name="Iso3" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="LanguageName_En" Type="nvarchar" MaxLength="64" Nullable="false" />
         </EntityType>
+        <EntityType Name="Patrons">
+          <Key>
+            <PropertyRef Name="PatronId" />
+          </Key>
+          <Property Name="PatronId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="PatronBarcode" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStyle" Type="bit" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Suffix" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReservedBookItems">
+          <Key>
+            <PropertyRef Name="ReservedBookItemId" />
+          </Key>
+          <Property Name="ReservedBookItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookItemId" Type="int" Nullable="false" />
+          <Property Name="PatronId" Type="int" Nullable="false" />
+          <Property Name="DateReserved" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK__BookItems__BookI__4F7CD00D">
           <End Role="Books" Type="Self.Books" Multiplicity="1" />
           <End Role="BookItems" Type="Self.BookItems" Multiplicity="*" />
@@ -61,10 +96,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Patrons__PersonI__2A4B4B5E">
+          <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+          <End Role="Patrons" Type="Self.Patrons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Patrons">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReservedB__BookI__5EBF139D">
+          <End Role="BookItems" Type="Self.BookItems" Multiplicity="1" />
+          <End Role="ReservedBookItems" Type="Self.ReservedBookItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookItems">
+              <PropertyRef Name="BookItemId" />
+            </Principal>
+            <Dependent Role="ReservedBookItems">
+              <PropertyRef Name="BookItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReservedB__Patro__5FB337D6">
+          <End Role="Patrons" Type="Self.Patrons" Multiplicity="1" />
+          <End Role="ReservedBookItems" Type="Self.ReservedBookItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patrons">
+              <PropertyRef Name="PatronId" />
+            </Principal>
+            <Dependent Role="ReservedBookItems">
+              <PropertyRef Name="PatronId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="EntitiesStoreContainer">
           <EntitySet Name="BookItems" EntityType="Self.BookItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patrons" EntityType="Self.Patrons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persons" EntityType="Self.Persons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReservedBookItems" EntityType="Self.ReservedBookItems" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__BookItems__BookI__4F7CD00D" Association="Self.FK__BookItems__BookI__4F7CD00D">
             <End Role="Books" EntitySet="Books" />
             <End Role="BookItems" EntitySet="BookItems" />
@@ -72,6 +146,18 @@
           <AssociationSet Name="FK__Books__LanguageI__1DE57479" Association="Self.FK__Books__LanguageI__1DE57479">
             <End Role="Languages" EntitySet="Languages" />
             <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Patrons__PersonI__2A4B4B5E" Association="Self.FK__Patrons__PersonI__2A4B4B5E">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="Patrons" EntitySet="Patrons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReservedB__BookI__5EBF139D" Association="Self.FK__ReservedB__BookI__5EBF139D">
+            <End Role="BookItems" EntitySet="BookItems" />
+            <End Role="ReservedBookItems" EntitySet="ReservedBookItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReservedB__Patro__5FB337D6" Association="Self.FK__ReservedB__Patro__5FB337D6">
+            <End Role="Patrons" EntitySet="Patrons" />
+            <End Role="ReservedBookItems" EntitySet="ReservedBookItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -126,6 +212,21 @@
             <End Role="Book" EntitySet="Books" />
             <End Role="BookItem" EntitySet="BookItems" />
           </AssociationSet>
+          <EntitySet Name="Patrons" EntityType="Entities.Patron" />
+          <EntitySet Name="Persons" EntityType="Entities.Person" />
+          <AssociationSet Name="FK__Patrons__PersonI__2A4B4B5E" Association="Entities.FK__Patrons__PersonI__2A4B4B5E">
+            <End Role="Person" EntitySet="Persons" />
+            <End Role="Patron" EntitySet="Patrons" />
+          </AssociationSet>
+          <EntitySet Name="ReservedBookItems" EntityType="Entities.ReservedBookItem" />
+          <AssociationSet Name="FK__ReservedB__BookI__5EBF139D" Association="Entities.FK__ReservedB__BookI__5EBF139D">
+            <End Role="BookItem" EntitySet="BookItems" />
+            <End Role="ReservedBookItem" EntitySet="ReservedBookItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReservedB__Patro__5FB337D6" Association="Entities.FK__ReservedB__Patro__5FB337D6">
+            <End Role="Patron" EntitySet="Patrons" />
+            <End Role="ReservedBookItem" EntitySet="ReservedBookItems" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BookItem">
           <Key>
@@ -138,6 +239,7 @@
           <Property Name="Barcode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ShelvingLocation" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Book" Relationship="Entities.FK__BookItems__BookI__4F7CD00D" FromRole="BookItem" ToRole="Book" />
+          <NavigationProperty Name="ReservedBookItems" Relationship="Entities.FK__ReservedB__BookI__5EBF139D" FromRole="BookItem" ToRole="ReservedBookItem" />
         </EntityType>
         <Association Name="FK__BookItems__BookI__4F7CD00D">
           <End Type="Entities.Book" Role="Book" Multiplicity="1" />
@@ -159,6 +261,82 @@
           <Member Name="CheckedOut" Value="5" />
           <Member Name="Lost" Value="6" />
         </EnumType>
+        <EntityType Name="Patron">
+          <Key>
+            <PropertyRef Name="PatronId" />
+          </Key>
+          <Property Name="PatronId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="PatronBarcode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="Entities.FK__Patrons__PersonI__2A4B4B5E" FromRole="Patron" ToRole="Person" />
+          <NavigationProperty Name="ReservedBookItems" Relationship="Entities.FK__ReservedB__Patro__5FB337D6" FromRole="Patron" ToRole="ReservedBookItem" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStyle" Type="Boolean" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Suffix" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patrons" Relationship="Entities.FK__Patrons__PersonI__2A4B4B5E" FromRole="Person" ToRole="Patron" />
+        </EntityType>
+        <Association Name="FK__Patrons__PersonI__2A4B4B5E">
+          <End Type="Entities.Person" Role="Person" Multiplicity="1" />
+          <End Type="Entities.Patron" Role="Patron" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Patron">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ReservedBookItem">
+          <Key>
+            <PropertyRef Name="ReservedBookItemId" />
+          </Key>
+          <Property Name="ReservedBookItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookItemId" Type="Int32" Nullable="false" />
+          <Property Name="PatronId" Type="Int32" Nullable="false" />
+          <Property Name="DateReserved" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="BookItem" Relationship="Entities.FK__ReservedB__BookI__5EBF139D" FromRole="ReservedBookItem" ToRole="BookItem" />
+          <NavigationProperty Name="Patron" Relationship="Entities.FK__ReservedB__Patro__5FB337D6" FromRole="ReservedBookItem" ToRole="Patron" />
+        </EntityType>
+        <Association Name="FK__ReservedB__BookI__5EBF139D">
+          <End Type="Entities.BookItem" Role="BookItem" Multiplicity="1" />
+          <End Type="Entities.ReservedBookItem" Role="ReservedBookItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookItem">
+              <PropertyRef Name="BookItemId" />
+            </Principal>
+            <Dependent Role="ReservedBookItem">
+              <PropertyRef Name="BookItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReservedB__Patro__5FB337D6">
+          <End Type="Entities.Patron" Role="Patron" Multiplicity="1" />
+          <End Type="Entities.ReservedBookItem" Role="ReservedBookItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patron">
+              <PropertyRef Name="PatronId" />
+            </Principal>
+            <Dependent Role="ReservedBookItem">
+              <PropertyRef Name="PatronId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -197,6 +375,44 @@
                 <ScalarProperty Name="CirculationStatusId" ColumnName="CirculationStatusId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="BookItemId" ColumnName="BookItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patrons">
+            <EntityTypeMapping TypeName="Entities.Patron">
+              <MappingFragment StoreEntitySet="Patrons">
+                <ScalarProperty Name="PatronBarcode" ColumnName="PatronBarcode" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="PatronId" ColumnName="PatronId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="Entities.Person">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="NameStyle" ColumnName="NameStyle" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReservedBookItems">
+            <EntityTypeMapping TypeName="Entities.ReservedBookItem">
+              <MappingFragment StoreEntitySet="ReservedBookItems">
+                <ScalarProperty Name="DateReserved" ColumnName="DateReserved" />
+                <ScalarProperty Name="PatronId" ColumnName="PatronId" />
+                <ScalarProperty Name="BookItemId" ColumnName="BookItemId" />
+                <ScalarProperty Name="ReservedBookItemId" ColumnName="ReservedBookItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,21 +12,14 @@ namespace Vrooms.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class BookItem
+    public partial class ReservedBookItem
     {
-        public BookItem()
-        {
-            this.ReservedBookItems = new HashSet<ReservedBookItem>();
-        }
-    
+        public int ReservedBookItemId { get; set; }
         public int BookItemId { get; set; }
-        public int BookId { get; set; }
-        public CirculationStatuses CirculationStatusId { get; set; }
-        public string RFID { get; set; }
-        public string Barcode { get; set; }
-        public string ShelvingLocation { get; set; }
+        public int PatronId { get; set; }
+        public System.DateTime DateReserved { get; set; }
     
-        public virtual Book Book { get; set; }
-        public virtual ICollection<ReservedBookItem> ReservedBookItems { get; set; }
+        public virtual BookItem BookItem { get; set; }
+        public virtual Patron Patron { get; set; }
     }
 }
