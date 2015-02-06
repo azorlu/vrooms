@@ -10,5 +10,6 @@ namespace Vrooms.Domain.Abstract
     public interface IBookItemRepository
     {
         IEnumerable<BookItem> BookItems { get; }
+        
     }
 }

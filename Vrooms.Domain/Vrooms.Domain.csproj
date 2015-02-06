@@ -82,6 +82,7 @@
     <Compile Include="Concrete\EFBookItemRepository.cs" />
     <Compile Include="Concrete\EFLanguageRepository.cs" />
     <Compile Include="Concrete\EFBookRepository.cs" />
+    <Compile Include="Entities\Book.Custom.cs" />
     <Compile Include="Entities\BookItem.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>

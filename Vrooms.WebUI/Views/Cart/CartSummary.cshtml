@@ -1,11 +1,10 @@
 ﻿@model Vrooms.Domain.Entities.Cart
 
-<div class="navbar-text navbar-right">
-    <b>@Model.Items.Count() book(s)</b>
-</div>
 <div class="navbar-right">
-    @Html.ActionLink("Reserve", "Index", "Cart",
-        new { returnUrl = Request.Url.PathAndQuery },
-        new { @class = "btn btn-default navbar-btn" })
+    <a href=@Url.Action("Index", "Cart", new { returnUrl = Request.Url.PathAndQuery })
+       class="btn btn-default navbar-btn">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+    </a>
+    <span class="navbar-text"><b>@Model.Items.Count() book(s)</b></span>
 </div>
 

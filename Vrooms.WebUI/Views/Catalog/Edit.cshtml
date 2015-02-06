@@ -1,0 +1,44 @@
+﻿@model Vrooms.Domain.Entities.Book
+
+@{
+    Page.Title = "Catalog: Edit " + @Model.Title;
+    Layout = "~/Views/Shared/_CatalogLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Edit @Model.Title</h3>
+    </div>
+    @using (Html.BeginForm("Edit", "Catalog"))
+    {
+        <div class="panel-body">
+            @Html.HiddenFor(b => b.BookId)
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                if (property.PropertyName != "BookId" && property.PropertyName != "Language" && property.PropertyName != "BookItems")
+                {
+                    <div class="form-group">
+                        <label>@(property.DisplayName ?? property.PropertyName)</label>
+                        @if (property.PropertyName == "Description")
+                        {
+                            @Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 4 })
+                        }
+                        else if (property.PropertyName == "LanguageId")
+                        {
+                            @Html.DropDownListFor(x => x.LanguageId, (IEnumerable<SelectListItem>)ViewBag.LanguagesList)
+                        }
+                        else
+                        {
+                            @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessage(property.PropertyName)
+                    </div>
+                }
+            }
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

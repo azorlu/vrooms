@@ -100,6 +100,7 @@
     <Compile Include="NavigationControllerTests.cs" />
     <Compile Include="BookControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CatalogControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

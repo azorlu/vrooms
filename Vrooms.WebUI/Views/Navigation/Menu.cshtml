@@ -1,12 +1,23 @@
 ﻿@using Vrooms.Domain.Entities
 @model IEnumerable<Language>
 
-@Html.ActionLink("Home", "List", "Book", null,
-new { @class = "btn btn-block btn-default btn-lg" })
+@{
+    bool horizontal = ((bool)(ViewContext.RouteData.Values["useHorizontalMenu"] ?? false));
+    string menuDivStyle = horizontal ? "btn-group btn-group-sm btn-group-justified" : null;
+}
 
-@foreach (var m in Model)
-{
-    @Html.RouteLink(m.LanguageName_En, new
+<div class="@menuDivStyle">
+
+    @Html.ActionLink("Home", "List", "Book", null,
+        new
+        {
+            @class = horizontal ? "btn btn-default btn-sm" :
+                "btn btn-block btn-default btn-lg"
+        })
+
+    @foreach (var m in Model)
+    {
+        @Html.RouteLink(m.LanguageName_En, new
 {
     controller = "Book",
     action = "List",
@@ -14,7 +25,9 @@ new { @class = "btn btn-block btn-default btn-lg" })
     pageNum = 1
 }, new
 {
-    @class = "btn btn-block btn-default btn-lg"
+    @class = (horizontal ? "btn btn-default btn-sm": "btn btn-block btn-default btn-lg" )
     + (m.LanguageId == ViewBag.SelectedLanguageId ? " btn-primary" : "")
 })
-}
+    }
+
+</div>

@@ -118,6 +118,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Web.config" />
@@ -129,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +142,7 @@
     <Compile Include="HtmlHelpers\PaginationHelpers.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\LanguagesListViewModel.cs" />
     <Compile Include="Models\BooksListViewModel.cs" />
     <Compile Include="Models\CartIndexViewModel.cs" />
     <Compile Include="Models\Pagination.cs" />
@@ -151,6 +158,9 @@
     <Content Include="Views\Navigation\Menu.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\CartSummary.cshtml" />
+    <Content Include="Views\Shared\_CatalogLayout.cshtml" />
+    <Content Include="Views\Catalog\Index.cshtml" />
+    <Content Include="Views\Catalog\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
